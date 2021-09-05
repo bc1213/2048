@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameDashboardActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D3D3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:backgroundTint="@color/cellLayoutBgColor"
+        android:padding="2pt"
+        tools:context=".MainActivity"
+        android:id="@+id/swipeArea">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/bu1"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu2"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu3"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu4"
+                style="@style/ViewCellStyle"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/bu5"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu6"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu7"
+                style="@style/ViewCellStyle" />
+
+            <View
+                android:id="@+id/bu8"
+                style="@style/ViewCellStyle" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/bu9"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu10"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu11"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu12"
+                style="@style/ViewCellStyle"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <View
+                android:id="@+id/bu13"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu14"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu15"
+                style="@style/ViewCellStyle"/>
+
+            <View
+                android:id="@+id/bu16"
+                style="@style/ViewCellStyle"/>
+
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
