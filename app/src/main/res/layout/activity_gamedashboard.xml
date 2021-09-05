@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".GameDashboardActivity">
 
+    <Button
+        android:id="@+id/tvtton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="New Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="launchNewGame"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D3D3D3"
+        android:background="@color/cellLayoutBgColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
@@ -23,20 +34,20 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <View
-                android:id="@+id/bu1"
+            <TextView
+                android:id="@+id/tv1"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu2"
+            <TextView
+                android:id="@+id/tv2"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu3"
+            <TextView
+                android:id="@+id/tv3"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu4"
+            <TextView
+                android:id="@+id/tv4"
                 style="@style/ViewCellStyle"/>
 
         </TableRow>
@@ -46,20 +57,20 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <View
-                android:id="@+id/bu5"
+            <TextView
+                android:id="@+id/tv5"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu6"
+            <TextView
+                android:id="@+id/tv6"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu7"
+            <TextView
+                android:id="@+id/tv7"
                 style="@style/ViewCellStyle" />
 
-            <View
-                android:id="@+id/bu8"
+            <TextView
+                android:id="@+id/tv8"
                 style="@style/ViewCellStyle" />
 
         </TableRow>
@@ -70,20 +81,20 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <View
-                android:id="@+id/bu9"
+            <TextView
+                android:id="@+id/tv9"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu10"
+            <TextView
+                android:id="@+id/tv10"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu11"
+            <TextView
+                android:id="@+id/tv11"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu12"
+            <TextView
+                android:id="@+id/tv12"
                 style="@style/ViewCellStyle"/>
 
         </TableRow>
@@ -93,23 +104,25 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <View
-                android:id="@+id/bu13"
+            <TextView
+                android:id="@+id/tv13"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu14"
+            <TextView
+                android:id="@+id/tv14"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu15"
+            <TextView
+                android:id="@+id/tv15"
                 style="@style/ViewCellStyle"/>
 
-            <View
-                android:id="@+id/bu16"
+            <TextView
+                android:id="@+id/tv16"
                 style="@style/ViewCellStyle"/>
 
         </TableRow>
     </TableLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
