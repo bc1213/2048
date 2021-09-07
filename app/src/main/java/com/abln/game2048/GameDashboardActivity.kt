@@ -14,11 +14,13 @@ import kotlin.collections.HashMap
 
 class GameDashboardActivity : AppCompatActivity() {
 
-    val colorMapper: HashMap<Int, String> = HashMap();
-    var filledCell = ArrayList<Int>()
-    var currentState = Array(4) {Array(4) {0} }
-    var updatedState = Array(4) {Array(4) {0} }
+    //private variables
+    private val colorMapper: HashMap<Int, String> = HashMap();
+    private var filledCell = ArrayList<Int>()
+    private var currentState = Array(4) {Array(4) {0} }
+    private var updatedState = Array(4) {Array(4) {0} }
 
+    //Enum class for handling swipe direction
     enum class SwipeDirection {
         Top,
         Bottom,
@@ -30,6 +32,7 @@ class GameDashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gamedashboard)
 
+        //mapping color for cells based on the value
         colorMapper[0] = "#CDC1B4"
         colorMapper[2] = "#eee4da"
         colorMapper[4] = "#ede0c7"
@@ -47,9 +50,13 @@ class GameDashboardActivity : AppCompatActivity() {
         playFirstMove()
     }
 
+    /**
+     * Adds swipe gesture for the view
+     *
+     * @param view: View for which the gesture is to be added
+     */
     fun addSwipeGesture(view: View) {
         view.isClickable = true
-
         view.setOnTouchListener(object : OnSwipeTouchListener(this@GameDashboardActivity) {
 
             override fun onSwipeTop() {
@@ -75,10 +82,17 @@ class GameDashboardActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * When the gesture recognizer recognizes any swipe events [left,right, top, bottom]
+     * It will call the method swipeaction
+     * @param action: SwipeDirection enum will be passed
+     */
     fun swipeAction(action: SwipeDirection) {
-        //save the current state into two dimensional array
+        // Step 1: When any swipe action happens
+        // save the current state into two dimensional array
         saveCurrentStateTo2DArray()
 
+        //Step 2: Based on swipe direction perform the specific action
         when(action) {
             SwipeDirection.Top -> {
                 performActionTop()
@@ -97,12 +111,19 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
+        //Step 3: After performing swipe action update the game UI
         loadFromUpdatedStateToUI()
+
+        //Step 4: Update the color code of the cell based on the value
         updateUIaccordingToNumber()
-        //Call value in empty space
+
+        //Step 6: Create a new value [2,4] add place it in the new available position
         generateNewRandomNumberAfterSwipeAction()
     }
 
+    /**
+     * Updates the color code of the cell based on the value
+     */
     fun updateUIaccordingToNumber() {
         //First row
         tv1.setBackgroundColor(Color.parseColor(colorMapper[updatedState[0][0]]))
@@ -129,6 +150,9 @@ class GameDashboardActivity : AppCompatActivity() {
         tv16.setBackgroundColor(Color.parseColor(colorMapper[updatedState[3][3]]))
     }
 
+    /**
+     * performActionTop method will be called when the user swipes to Top
+     */
     fun performActionTop() {
 //        copy current state to final state
         updatedState = currentState
@@ -161,6 +185,9 @@ class GameDashboardActivity : AppCompatActivity() {
         updatedState = currentState
     }
 
+    /**
+     * performActionTop method will be called when the user swipes to Bottom
+     */
     fun performActionBottom() {
         //        copy current state to final state
         updatedState = currentState
@@ -194,6 +221,9 @@ class GameDashboardActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * performActionTop method will be called when the user swipes to Left
+     */
     fun performActionLeft() {
         //        copy current state to final state
         updatedState = currentState
@@ -226,6 +256,10 @@ class GameDashboardActivity : AppCompatActivity() {
         updatedState = currentState
     }
 
+
+    /**
+     * performActionTop method will be called when the user swipes to Right
+     */
     fun performActionRight() {
         //        copy current state to final state
         updatedState = currentState
@@ -256,9 +290,12 @@ class GameDashboardActivity : AppCompatActivity() {
 
         updateFreeCells()
         updatedState = currentState
-
     }
 
+    /**
+     * updateFreeCells method updates the cells after any swipe action
+     * so that the new values will be created in the available space
+     */
     fun updateFreeCells() {
         filledCell.clear()
 
@@ -282,6 +319,10 @@ class GameDashboardActivity : AppCompatActivity() {
         Log.d("TAG", "filledCellCount"+filledCell.size)
     }
 
+    /**
+     * saveCurrentStateTo2DArray: This method will save the current game cell in to 2D array
+     * which will be used later for calculations
+     */
     fun saveCurrentStateTo2DArray() {
         //FirstRow
         currentState[0][0] = tv1.text.toString().toIntWithNullHandle();
@@ -308,6 +349,9 @@ class GameDashboardActivity : AppCompatActivity() {
         currentState[3][3] = tv16.text.toString().toIntWithNullHandle();
     }
 
+    /**
+     * loadFromUpdatedStateToUI: This method will load the updated results to UI
+     */
     fun loadFromUpdatedStateToUI() {
         //FirstRow
         tv1.text = updatedState[0][0].toStringWithZeroHandle()
@@ -334,6 +378,10 @@ class GameDashboardActivity : AppCompatActivity() {
         tv16.text = updatedState[3][3].toStringWithZeroHandle()
     }
 
+    /**
+     * generateNewRandomNumberAfterSwipeAction: This method will generate a new random value [2,4]
+     * in the available cell using random function
+     */
     fun generateNewRandomNumberAfterSwipeAction() {
         var emptyCell = ArrayList<Int>()
 
@@ -375,8 +423,11 @@ class GameDashboardActivity : AppCompatActivity() {
         playGame(cellId, tvSelected, generateCellRandomNumber())
     }
 
+    /**
+     * restartGame: WHen the user presses New Game button this method will be called
+     * This method will reset the game to New state and resets the color
+     */
     fun restartGame() {
-
         filledCell.clear()
 
         for (cellId in 1..16) {
@@ -403,18 +454,21 @@ class GameDashboardActivity : AppCompatActivity() {
             tvSelected?.text = ""
             tvSelected?.setBackgroundResource(R.color.cellDefaultColor)
         }
-
-        //play first action : place 2' in two places randomly
+        //After reseting: play first action : place 2' in two places randomly
         playFirstMove()
     }
 
-    /*
-    * In the 2048 game, 2's appear 90% of the time; 4's appear 10% of the time
-    * */
+    /**
+     * In the 2048 game, 2's appear 90% of the time; 4's appear 10% of the time
+     */
     fun generateCellRandomNumber(): Int {
         return if (Math.random() < 0.9) 2 else 4
     }
 
+    /**
+     * playFirstMove: This method will be called during game beginning and after pressing New Game button
+     * Initially it will place two number [2 or 4] randomly in the available space
+     */
     fun playFirstMove() {
         var emptyCell = ArrayList<Int>()
 
@@ -476,17 +530,30 @@ class GameDashboardActivity : AppCompatActivity() {
         playGame(cellId2, tvSelected1, generateCellRandomNumber())
     }
 
+    /**
+     * playGame: method will be called when the user performs any action, swipe or game reset
+     * @param cellId: Position where to add the value, Ex: 10
+     * @param tvSelected: text view reference to value and colour background to textview
+     * @param value: Value can be [2 or 4] Ex: 2
+     */
     fun playGame(cellId: Int, tvSelected: TextView, value: Int) {
         filledCell.add(cellId)
         tvSelected.text = value.toString()
         tvSelected.setBackgroundColor(Color.parseColor(colorMapper[value]))
     }
 
+    /**
+     * launchNewGame: This method is called from Onclick event of the New Game button
+     */
     fun launchNewGame(view: android.view.View) {
         restartGame()
     }
 }
 
+/**
+ * This String extension is used to convert String to Int
+ * If string is empty [""] then it will return 0
+ */
 fun String.toIntWithNullHandle(): Int {
     if(this.contentEquals("")) {
         return 0
@@ -494,6 +561,10 @@ fun String.toIntWithNullHandle(): Int {
     return this.toInt()
 }
 
+/**
+ * This Integer extension is used to convert Integer to String
+ * If Integer is 0 then it will return empty string [""]
+ */
 fun Int.toStringWithZeroHandle(): String {
     if(this == 0) {
         return ""
