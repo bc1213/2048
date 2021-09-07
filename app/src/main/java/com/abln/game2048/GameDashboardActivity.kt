@@ -92,7 +92,10 @@ class GameDashboardActivity : AppCompatActivity() {
         // save the current state into two dimensional array
         saveCurrentStateTo2DArray()
 
-        //Step 2: Based on swipe direction perform the specific action
+        //Step 2:copy current state to final state
+        updatedState = currentState
+
+        //Step 3: Based on swipe direction perform the specific action
         when(action) {
             SwipeDirection.Top -> {
                 performActionTop()
@@ -111,13 +114,19 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
-        //Step 3: After performing swipe action update the game UI
+        //Step 4: Update the filledCell arraylist based on the swipe action
+        updateFreeCells()
+
+        //Step 5: Update the current 2D array to updatedState
+        updatedState = currentState
+
+        //Step 6: After performing swipe action update the game UI
         loadFromUpdatedStateToUI()
 
-        //Step 4: Update the color code of the cell based on the value
+        //Step 7: Update the color code of the cell based on the value
         updateUIaccordingToNumber()
 
-        //Step 6: Create a new value [2,4] add place it in the new available position
+        //Step 8: Create a new value [2,4] add place it in the new available position
         generateNewRandomNumberAfterSwipeAction()
     }
 
@@ -154,11 +163,7 @@ class GameDashboardActivity : AppCompatActivity() {
      * performActionTop method will be called when the user swipes to Top
      */
     fun performActionTop() {
-//        copy current state to final state
-        updatedState = currentState
-
-        //check if first two rows can be added
-
+        //Step 1: check if consecutive rows can be added from bottom to Top
         for(row:Int in 1 until currentState.size) {
             for(col: Int in currentState[row].indices) {
                 if(currentState[row-1][col] == currentState[row][col]) {
@@ -169,7 +174,7 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
-        //move the position from bottom to top
+        //Step 2: move the position from bottom to top
         for(row in 3 downTo 1) {
             for(col: Int in currentState[row].indices) {
 
@@ -180,20 +185,14 @@ class GameDashboardActivity : AppCompatActivity() {
                 }
             }
         }
-
-        updateFreeCells()
-        updatedState = currentState
+        //TODO: Need to use sort login to move the positions from bottom to top
     }
 
     /**
      * performActionTop method will be called when the user swipes to Bottom
      */
     fun performActionBottom() {
-        //        copy current state to final state
-        updatedState = currentState
-
-        //check if first two rows can be added
-
+        //Step 1: check if consecutive rows can be added from top to bottom
         for(row:Int in currentState.size-1 downTo 1) {
             for(col: Int in currentState[row].indices) {
                 if(currentState[row-1][col] == currentState[row][col]) {
@@ -204,7 +203,7 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
-        //move the position from bottom to top
+        //Step 2: Move the position from bottom to top
         for(row in 1 until currentState.size) {
             for(col: Int in currentState[row].indices) {
 
@@ -215,20 +214,13 @@ class GameDashboardActivity : AppCompatActivity() {
                 }
             }
         }
-
-        updateFreeCells()
-        updatedState = currentState
-
     }
 
     /**
      * performActionTop method will be called when the user swipes to Left
      */
     fun performActionLeft() {
-        //        copy current state to final state
-        updatedState = currentState
-
-        //check if first two rows can be added
+        //Step 1: check if consecutive columns can be added from right to left
 
         for(col:Int in 1 until currentState.size) {
             for(row: Int in currentState[col].indices) {
@@ -240,7 +232,7 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
-        //move the position from bottom to top
+        //Step 2: move the position from right to left
         for(col in 3 downTo 1) {
             for(row: Int in currentState[col].indices) {
 
@@ -251,9 +243,6 @@ class GameDashboardActivity : AppCompatActivity() {
                 }
             }
         }
-
-        updateFreeCells()
-        updatedState = currentState
     }
 
 
@@ -261,10 +250,7 @@ class GameDashboardActivity : AppCompatActivity() {
      * performActionTop method will be called when the user swipes to Right
      */
     fun performActionRight() {
-        //        copy current state to final state
-        updatedState = currentState
-
-        //check if first two rows can be added
+        //Step 1: check if consecutive columns can be added from left to right
 
         for(col:Int in currentState.size-1 downTo 1) {
             for(row: Int in currentState[col].indices) {
@@ -276,7 +262,7 @@ class GameDashboardActivity : AppCompatActivity() {
             }
         }
 
-        //move the position from bottom to top
+        //Step 2: move the position from left to right
         for(col in 1 until currentState.size) {
             for(row: Int in currentState[col].indices) {
 
@@ -287,9 +273,6 @@ class GameDashboardActivity : AppCompatActivity() {
                 }
             }
         }
-
-        updateFreeCells()
-        updatedState = currentState
     }
 
     /**
